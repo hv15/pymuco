@@ -1,9 +1,11 @@
-_The **Ultimate Ruby Audio Converter**_
+The **Ultimate Ruby Audio Converter**
+=====================================
 
-    \   \ ---  --- ---
-     \   \\__\ \__\\
-      \___\\  \_\  \\___
-       by hv15
+       __  __
+      / / / /______  ______ ___  __  ___________
+     / / / / ___/ / / / __ `__ \/ / / / ___/ __ \
+    / /_/ / /  / /_/ / / / / / / /_/ / /__/ /_/ /
+    \____/_/   \__,_/_/ /_/ /_/\__,_/\___/\____/
 
 Goals:
 
@@ -19,9 +21,8 @@ Why:
 I have used several scripts, be they BASH or Python, to batch convert files to
 mp3, however all of them have been clunky to say the least. I want to create
 something structured and powerful to use. As simple as typing in
-`urac . /newdir`, and it just works. I have been working a lot with Ruby over
+`urumuco . /newdir`, and it just works. I have been working a lot with Ruby over
 the last few months, and think I have a good understand of how to make this
 app.
 
-Pronounciation:
-`uhr-ack`
+Pronounciation: Ha, really?
