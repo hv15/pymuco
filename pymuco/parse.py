@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import argparse
 import settings
+import exception
 import sys
 from distutils import spawn
 
@@ -57,12 +58,6 @@ class ParseArguments:
 		if parsed.ogg:
 			dic['oggenc'] = parsed.ogg
 		return dic
-
-class _ExecNotFound(Exception):
-	def __init__(self, value):
-		self.value = value
-	def __str__(self):
-		return "[Exception]: `{0}' not in PATH variable!".format(self.value)
 
 class CheckDepends:
 	def __init__(self, progs=['flac','lame','oggenc'], locs={}):
