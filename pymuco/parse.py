@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import argparse
-import settings
-import exception
 import sys
 from distutils import spawn
+# Local
+import settings
+import exception
 
 class _ShowDefaults(argparse.Action):
 	def __init__(self,
@@ -24,15 +25,15 @@ class _ShowDefaults(argparse.Action):
 			help=help)
 	def __call__(self, parser, namespace, values, option_string=None):
 		defaults = settings.ReadSettings().defaults()
-		print "FLAG         VALUE"
-		for key, value in defaults.viewitems():
-			print "--{0}: {1}".format(key, value)
+		print ("  {:<10}  {}".format("FLAG","VALUE"))
+		for key, value in defaults.items():
+			print ("--{:<10}= {}".format(key, value))
 		sys.exit(0)
 
 class ParseArguments:
 	def __init__(self):
 		self.defaults = settings.ReadSettings().defaults()
-		self.parser = argparse.ArgumentParser(description="a Python Music Converter", epilog="Created by Hans-Nikolai Viessmann")
+		self.parser = argparse.ArgumentParser(description="a PYthon MUsic COnverter", epilog="Created by Hans-Nikolai Viessmann, Copyright 2014")
 	def _arguments(self):
 		self.parser.add_argument('--format', default=self.defaults['format'],
 								help="output format (default: %(default)s)")
@@ -69,7 +70,7 @@ class CheckDepends:
 			for prog in self.progs:
 				dic[prog] = self._which(prog)
 			return dic
-		except _ExecNotFound as enf:
+		except exception._ExecNotFound as enf:
 			print ("You seem to be missing `{0}'! It is not in your PATH"
 				   " variable. If you want you can specify it using the"
 				   " appropriate command line flag. Call  `--help'"
@@ -81,7 +82,7 @@ class CheckDepends:
 		if fprog:
 			return fprog
 		else:
-			raise _ExecNotFound(prog)
+			raise exception._ExecNotFound(prog)
 
 if __name__ == "__main__":
 	pa = ParseArguments()
