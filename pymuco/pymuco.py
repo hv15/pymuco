@@ -9,11 +9,6 @@ import settings
 DECODE = ('.flac')
 OTHER = ('.jpg', '.jpeg', '.gif', '.png', '.log')
 
-def klass(module, fromlist):
-    """ dynamically import a class """
-    mod = __import__(module, fromlist)
-    return getattr(mod, fromlist)
-
 def walk(input, output):
     print("Walking in %s -> %s" % (input, output))
     for root, dirs, files in os.walk(input):
