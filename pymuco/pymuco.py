@@ -1,53 +1,56 @@
 # -*- coding: utf-8 -*-
-import os
-import shutil
+import os, shutil
 # Local
 import parse
-from transcode import flac, mp3
+import transcoders
 import settings
-
-DECODE = ('.flac')
-OTHER = ('.jpg', '.jpeg', '.gif', '.png', '.log')
 
 def walk(input, output):
     print("Walking in %s -> %s" % (input, output))
     for root, dirs, files in os.walk(input):
         for name in files:
-            if name.endswith(DECODE):
+            ext = name.split('.')[1]
+            if ext in ts.decoders:
                 # this is where we do the actual transcoding...
-                print("Transcoding `%s'" % name)
-                print("%s" % root)
                 process(root, name, output)
-            elif name.endswith(OTHER):
+            elif ext in s.get('default','static'):
                 print("Copying over `%s'" % name)
                 shutil.copy(os.path.join(root, name), output)
         for name in dirs:
             output = os.path.join(output, name)
             if not os.path.isdir(output):
                 os.mkdir(output)
-                
+
 def process(root, file, output):
-    decoder = os.path.splitext(file)[1][1:]
-    encoder = p.format
-    (prefix, sep, suffix) = file.rpartition('.')
-    ofile = os.path.join(output, prefix + '.mp3')
-    d = flac.Decode(c[decoder], s.get('default', 'dflags'))
-    e = mp3.Encode(c[encoder], s.get('default', 'eflags'))
+    prefix, sep, suffix = file.rpartition('.')
+    ofile = os.path.join(output, prefix + eext)
+    decoder = ts.import_transcoder(ts.decoders[suffix])
+    d = decoder.Decode(s.get(ts.decoders[suffix], 'flags'))
+    e = encoder.Encode(s.get(p.encoder, 'flags'))
     d.settings(os.path.join(root, file))
     e.settings(ofile)
-    e.encode(d.decode(os.path.join(root, file)), ofile)
+    dstream = d.decode(os.path.join(root, file))
+    estream = e.encode(dstream, ofile)
+
+    print("TRANSCODING `%s'" % os.path.join(root, file))
+
+    dstream.stdout.close()
+    output = estream.communicate()[0]
+
+# Main Setup
+s = settings.ReadSettings()
+ts = transcoders.Transcoders()
+ts.find_transcoders()
 
 # parse command line flags and source file/directory
 pa = parse.ParseArguments()
 p = pa.parse()
 
-# check decoder/encoder dependencies
-cd = parse.CheckDepends(locs=pa.locs(p))
-c = cd.check()
+# get encoder
+encoder = ts.import_transcoder(p.encoder)
 
-# setup settings
-s = settings.ReadSettings()
-s.open("settings.ini")
+# Get Encoder extension
+eext = ts.get_extension(p.encoder)
 
 # Begin walking
 if not os.path.isdir(p.destination):

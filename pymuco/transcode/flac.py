@@ -2,8 +2,11 @@
 import abc_transcode
 import subprocess
 
+EXTENSION = 'flac'
+BINARY = 'flac'
+
 class Decode(abc_transcode.Decode):
-    def __init__(self, binary, eflags):
+    def __init__(self, eflags, binary = BINARY):
         self.binary = [binary]
         self.eflags = eflags.split()
         self.args = self.binary + self.eflags
