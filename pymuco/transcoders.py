@@ -8,7 +8,7 @@ Created on Thu May 29 21:36:37 2014
 import os, sys
 
 TRANSCODE = 'transcode'
-TRANSCODERS = os.path.abspath(TRANSCODE)
+TRANSCODERS = os.path.join(os.path.dirname(__file__), TRANSCODE)
 
 class Transcoders(object):
     def __init__(self):
@@ -44,6 +44,10 @@ class Transcoders(object):
             return self.all[self.stxe[name]]
         else:
             return self.all[name]
+    def get_encoders(self):
+        return list(self.encoders)
+    def get_decoders(self):
+        return list(self.decoders)
 
 if __name__ == '__main__':
     t = Transcoders()
@@ -51,6 +55,8 @@ if __name__ == '__main__':
     print("PLUGINS: ", t.plugins)
     print("DECODER: ", t.decoders)
     print("ENCODER: ", t.encoders)
+    print("L-ENCOD: ", t.get_encoders())
+    print("L-DECOD: ", t.get_decoders())
     print("EXTENSN: ", t.exts)
     print("NSNETXE: ", t.stxe)
     sys.stdout.write("EXTENSN:  ")

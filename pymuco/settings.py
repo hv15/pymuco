@@ -21,8 +21,8 @@ class ReadSettings(object):
             print("You don't seem to have a default configuration file...")
             print("A new one has been created for you at `%s'" % file)
             self.config['default'] = {'encoder': 'lame',
-                                      'static': '.jpg .jpeg .gif .png .log .cue',
-                                      'nstatic': '.bak .ini'}
+                                      'static_files': '.jpg .jpeg .gif .png .log .cue',
+                                      'ignore_files': '.bak .ini'}
             self.config['lame'] = {'flags': '--vbr-new -V0 --silent -'}
             self.config['flac'] = {'flags': '-d -c -s'}
             self.config['oggenc'] = {}

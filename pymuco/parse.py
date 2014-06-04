@@ -22,18 +22,19 @@ class _FullPaths(argparse.Action):
         setattr(namespace, self.dest, os.path.abspath(os.path.expanduser(values)))
 
 class ParseArguments(object):
-    def __init__(self):
+    def __init__(self, transcoders):
         self.parser = argparse.ArgumentParser(
                                         description="a Python music converter",
                                         epilog="Created by Hans-Nikolai"
                                         " Viessmann, Copyright 2014")
+        self.transcoders = transcoders
     def _arguments(self):
         self.parser.add_argument('--encoder',
                                  default=DEFAULT_CONFIG['default']['encoder'],
-                                 choices={'lame','oggenc'},
+                                 choices=self.transcoders.get_encoders(),
                                  help="output encoder (default: `%(default)s')")
         self.parser.add_argument('--config-file', default='settings.ini',
-                                help="use config file (default: %(default)s)")
+                                help="use config file (default: `%(default)s')")
         self.parser.add_argument('--defaults', action=_ShowDefaults, nargs=0,
                                 help="show default configuration")
         self.parser.add_argument('source', metavar='SRC', action=_FullPaths,
