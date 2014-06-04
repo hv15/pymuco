@@ -4,9 +4,10 @@
 This module handles the reading of a configuration file that includes settings
 for both Pymuco and third-party applications.
 """
-from configparser import ConfigParser
-import transcoders
 import os
+from configparser import ConfigParser
+# Local
+import transcoders
 
 class ReadSettings(object):
     def __init__(self, file='settings.ini'):

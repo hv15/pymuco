@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """"""
-import argparse
-import os
+import argparse, os
 from distutils import spawn
 # Local
 import settings

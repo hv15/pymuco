@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import abc_transcode
 import subprocess
+# Local
+import abc_transcode
 
 EXTENSION = 'flac'
 BINARY = 'flac'
